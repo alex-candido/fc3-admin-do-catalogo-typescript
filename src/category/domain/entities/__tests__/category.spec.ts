@@ -62,4 +62,36 @@ describe("Category Unit Tests", () => {
     expect(category.is_active).toBeTruthy();
     expect(category.created_at).toBe(created_at);
   });
+  test("getter and setter of is_active prop", () => {
+    let category = new Category({
+      name: "Movie",
+    });
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({
+      name: "Movie",
+      is_active: true,
+    });
+    expect(category.is_active).toBeTruthy();
+
+    category = new Category({
+      name: "Movie",
+      is_active: false,
+    });
+    expect(category.is_active).toBeFalsy();
+  });
+  test("getter of created_at prop", () => {
+    let category = new Category({
+      name: "Movie",
+    });
+
+    expect(category.created_at).toBeInstanceOf(Date);
+
+    let created_at = new Date();
+    category = new Category({
+      name: "Movie",
+      created_at,
+    });
+    expect(category.created_at).toBe(created_at);
+  });
 });
