@@ -1,5 +1,6 @@
 import { omit } from "lodash";
-import { Category } from "../category";
+import { validate as uuidValidate } from "uuid";
+import { Category, CategoryProperties } from "../category";
 
 describe("Category Unit Tests", () => {
   test("constructor of category", () => {
@@ -62,6 +63,24 @@ describe("Category Unit Tests", () => {
     expect(category.is_active).toBeTruthy();
     expect(category.created_at).toBe(created_at);
   });
+
+  describe("id field", () => {
+    type CategoryData = { props: CategoryProperties; id?: string };
+
+    const arrange: CategoryData[] = [
+      { props: { name: "Movie" } },
+      { props: { name: "Movie" }, id: null },
+      { props: { name: "Movie" }, id: undefined },
+      { props: { name: "Movie" }, id: "f20bf9da-20d0-4cc0-95c5-620bc193c395" },
+    ];
+
+    test.each(arrange)("when props is %j", (item) => {
+      const category = new Category(item.props, item.id as any);
+      expect(category.id).not.toBeNull();
+      expect(uuidValidate(category.id)).toBeTruthy();
+    });
+  });
+
   test("getter and setter of is_active prop", () => {
     let category = new Category({
       name: "Movie",
@@ -80,6 +99,7 @@ describe("Category Unit Tests", () => {
     });
     expect(category.is_active).toBeFalsy();
   });
+
   test("getter of created_at prop", () => {
     let category = new Category({
       name: "Movie",
