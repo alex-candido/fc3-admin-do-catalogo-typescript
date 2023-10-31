@@ -12,7 +12,7 @@ RUN mkdir -p /usr/share/man/man1 && \
   fonts-powerline \
   procps
 
-RUN npm install -g @nestjs/cli npm
+RUN yarn add -g @nestjs/cli yarn
 
 ENV JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
 
