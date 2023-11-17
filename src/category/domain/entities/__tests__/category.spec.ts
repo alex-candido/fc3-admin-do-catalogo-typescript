@@ -66,7 +66,6 @@ describe("Category Unit Tests", () => {
 
   describe("id field", () => {
     type CategoryData = { props: CategoryProperties; id?: UniqueEntityId };
-
     const arrange: CategoryData[] = [
       { props: { name: "Movie" } },
       { props: { name: "Movie" }, id: null },
@@ -77,10 +76,10 @@ describe("Category Unit Tests", () => {
     test.each(arrange)("when props is %j", (item) => {
       const category = new Category(item.props, item.id as any);
       expect(category.id).not.toBeNull();
-      expect(category.id).toBeInstanceOf(UniqueEntityId);
-    });
+      expect(category.uniqueEntityId).toBeInstanceOf(UniqueEntityId);
+    })
   });
-
+  
   test("getter and setter of is_active prop", () => {
     let category = new Category({
       name: "Movie",
@@ -113,5 +112,12 @@ describe("Category Unit Tests", () => {
       created_at,
     });
     expect(category.created_at).toBe(created_at);
+  });
+
+  it("should update a category", () => {
+    const category = new Category({ name: "Movie" });
+    category.update("Documentary", "some description");
+    expect(category.name).toBe("Documentary");
+    expect(category.description).toBe("some description");
   });
 });
