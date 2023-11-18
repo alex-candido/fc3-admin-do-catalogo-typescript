@@ -21,6 +21,10 @@ export class Category extends Entity<CategoryProperties> {
     this.description = description;
   }
 
+  static validate(props: CategoryProperties) {
+    return {}
+  }
+
   activate() {
     this.props.is_active = true;
   }
