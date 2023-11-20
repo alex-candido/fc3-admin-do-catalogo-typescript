@@ -23,6 +23,7 @@
     "uuidv4": "^6.2.13"
   },
   "dependencies": {
+    "class-validator": "^0.14.0",
     "lodash": "^4.17.21",
     "ts-jest": "^29.1.1"
   }
