@@ -18,6 +18,7 @@
     "@types/lodash": "^4.14.200",
     "@types/node": "^20.8.9",
     "jest": "^29.7.0",
+    "regenerator-runtime": "^0.14.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2",
     "uuidv4": "^6.2.13"
