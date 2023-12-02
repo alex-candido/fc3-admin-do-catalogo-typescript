@@ -4,7 +4,22 @@ import CategoryRepository from "../../../domain/repository/category.repository";
 
 export class CategoryInMemoryRepository
   extends InMemorySearchableRepository<Category>
-  implements CategoryRepository 
-{}
+  implements CategoryRepository.Repository
+{
+  sortableFields: string[] = ["name", "created_at"];
+
+  protected async applyFilter(
+    items: Category[],
+    filter: CategoryRepository.Filter,
+  ): Promise<Category[]> {
+    if (!filter) {
+      return items;
+    }
+
+    return items.filter((i) => {
+      return i.props.name.toLowerCase().includes(filter.toLowerCase());
+    });
+  }
+}
 
 export default CategoryInMemoryRepository;

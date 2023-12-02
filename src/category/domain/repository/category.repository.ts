@@ -1,25 +1,28 @@
-import { SearchableRepositoryInterface } from "../../../@seedwork/domain/repository";
+import {
+  SearchParams as DefaultSearchParams,
+  SearchResult as DefaultSearchResult,
+  SearchableRepositoryInterface,
+} from "../../../@seedwork/domain/repository/repository-contracts";
 import { Category } from "../entities/category";
 
-export default interface CategoryRepository
-  extends SearchableRepositoryInterface<Category> {}
 
-// export type CategoryFilter = string;
+export namespace CategoryRepository {
+  export type Filter = string;
 
-// export class SearchParams extends SearchParams<CategoryFilter> {}
+  export class SearchParams extends DefaultSearchParams<Filter> {}
 
-// export class SearchResult extends SearchResult<
-//   Category,
-//   CategoryFilter
-// > {}
+  export class SearchResult extends DefaultSearchResult<Category, Filter> {}
 
-// export default interface CategoryRepository
-//   extends SearchableRepositoryInterface<
-//     Category,
-//     CategoryFilter,
-//     CategorySearchParams,
-//     CategorySearchResult
-//   > {}
+  export interface Repository
+    extends SearchableRepositoryInterface<
+      Category,
+      Filter,
+      SearchParams,
+      SearchResult
+    > {}
+}
+
+export default CategoryRepository;
 
 // // Category -> filter, SearchParams, SearchResult, Repository
 // // Genre -> filter, SearchParams, SearchResult, Repository
