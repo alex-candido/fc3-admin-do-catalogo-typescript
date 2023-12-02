@@ -6,7 +6,12 @@
   "scripts": {
     "ts-node": "ts-node",
     "tsc": "tsc",
-    "test": "jest"
+    "tsc:check": "tsc --noEmit",
+    "build": "tsc -b ./tsconfig.json",
+    "build:w": "tsc -b ./tsconfig.json -w",
+    "clean:tsc": "rm tsconfig.tsbuildinfo",
+    "test": "jest",
+    "test:cov": "test -- --coverage"
   },
   "keywords": [],
   "author": "",
