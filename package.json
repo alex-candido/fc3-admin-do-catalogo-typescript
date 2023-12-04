@@ -10,7 +10,11 @@
   ],
   "scripts": {
     "w:core": "yarn workspace @fc/micro-videos",
-    "w:nest": "yarn workspace nestjs"
+    "w:nest": "yarn workspace nestjs",
+    "prestart:dev": "yarn workspace @fc/micro-videos build",
+    "start:dev": "yarn workspace @fc/micro-videos build & yarn workspace nestjs start:dev",
+    "test": "jest",
+    "test:cov": "jest --collect-coverage"
   },
   "repository": {
     "type": "git",
