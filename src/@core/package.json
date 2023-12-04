@@ -47,7 +47,7 @@
     "build:w": "tsc -b ./tsconfig.json -w",
     "clean:tsc": "rm tsconfig.tsbuildinfo",
     "test": "jest",
-    "test:cov": "test -- --coverage",
+    "test:cov": "jest --collect-coverage",
     "cti": "cti",
     "cti:make": "sh ./cti.sh"
   },

@@ -1,3 +1,4 @@
+import { Category } from '@fc/micro-videos/category/domain';
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
 
@@ -7,6 +8,7 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log(Category);
     return this.appService.getHello();
   }
 }

@@ -8,6 +8,10 @@
     "./src/@core",
     "./src/nestjs"
   ],
+  "scripts": {
+    "w:core": "yarn workspace @fc/micro-videos",
+    "w:nest": "yarn workspace nestjs"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/alex-candido/fc3-admin-do-catalogo-typescript.git"
