@@ -1,55 +1,89 @@
 import {
+  CategoryOutput,
   CreateCategoryUseCase,
+  DeleteCategoryUseCase,
+  GetCategoryUseCase,
   ListCategoriesUseCase,
+  UpdateCategoryUseCase,
 } from '@fc/micro-videos/category/application';
+
 import {
   Body,
   Controller,
   Delete,
   Get,
+  HttpCode,
+  Inject,
   Param,
-  Patch,
+  ParseUUIDPipe,
   Post,
+  Put,
+  Query,
 } from '@nestjs/common';
-import { CategoriesService } from './categories.service';
+
 import { CreateCategoryDto } from './dto/create-category.dto';
+import { SearchCategoryDto } from './dto/search-category.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
+import { CategoryPresenter } from './presenter/category.presenter';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(
-    private readonly categoriesService: CategoriesService,
-    private createUseCase: CreateCategoryUseCase.UseCase,
-    private listUseCase: ListCategoriesUseCase.UseCase,
-  ) {}
+  @Inject(CreateCategoryUseCase.UseCase)
+  private createUseCase: CreateCategoryUseCase.UseCase;
+
+  @Inject(UpdateCategoryUseCase.UseCase)
+  private updateUseCase: UpdateCategoryUseCase.UseCase;
+
+  @Inject(DeleteCategoryUseCase.UseCase)
+  private deleteUseCase: DeleteCategoryUseCase.UseCase;
+
+  @Inject(GetCategoryUseCase.UseCase)
+  private getUseCase: GetCategoryUseCase.UseCase;
+
+  @Inject(ListCategoriesUseCase.UseCase)
+  private listUseCase: ListCategoriesUseCase.UseCase;
 
   @Post()
-  create(@Body() _createCategoryDto: CreateCategoryDto) {
-    return this.createUseCase.execute({ name: 'alex candido' });
-    // return this.categoriesService.create(createCategoryDto);
+  async create(@Body() createCategoryDto: CreateCategoryDto) {
+    const output = await this.createUseCase.execute(createCategoryDto);
+    return CategoriesController.categoryToResponse(output);
   }
 
   @Get()
-  findAll() {
-    return this.listUseCase.execute({});
-    // return this.categoriesService.findAll();
+  async search(@Query() searchParams: SearchCategoryDto) {
+    return await this.listUseCase.execute(searchParams);
+    // return new CategoryCollectionPresenter(output);
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoriesService.findOne(+id);
+  async findOne(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
+  ) {
+    const output = await this.getUseCase.execute({ id });
+    return CategoriesController.categoryToResponse(output);
   }
 
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
+  @Put(':id') //PUT vs PATCH
+  async update(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
     @Body() updateCategoryDto: UpdateCategoryDto,
   ) {
-    return this.categoriesService.update(+id, updateCategoryDto);
+    const output = await this.updateUseCase.execute({
+      id,
+      ...updateCategoryDto,
+    });
+    return CategoriesController.categoryToResponse(output);
   }
 
+  @HttpCode(204)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoriesService.remove(+id);
+  remove(
+    @Param('id', new ParseUUIDPipe({ errorHttpStatusCode: 422 })) id: string,
+  ) {
+    return this.deleteUseCase.execute({ id });
+  }
+
+  static categoryToResponse(output: CategoryOutput) {
+    return new CategoryPresenter(output);
   }
 }
