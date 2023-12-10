@@ -1,11 +1,7 @@
-###
-GET http://localhost:3000/
-
-###
 GET http://localhost:3000/categories
 
 ###
-GET http://localhost:3000/categories/b4452093-964b-4ab8-9876-74da32ced784
+GET http://localhost:3000/categories/bfa34e4d-2ad9-47b6-8646-f91a9b5aceb1
 
 ###
 POST http://localhost:3000/categories
@@ -16,7 +12,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:3000/categories/b4452093-964b-4ab8-9876-74da32ced784
+PUT http://localhost:3000/categories/bfa34e4d-2ad9-47b6-8646-f91a9b5aceb1
 Content-Type: application/json
 
 {
@@ -24,5 +20,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:3000/categories/b4452093-964b-4ab8-9876-74da32ced784
+DELETE  http://localhost:3000/categories/d71a0d03-39e7-424e-b96b-b3e235570b97
 Content-Type: application/json
