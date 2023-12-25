@@ -24,7 +24,7 @@ describe("CategoryModel Unit Tests", () => {
     await _sequelize.close();
   });
 
-   test("mapping props", () => {
+  test("mapping props", () => {
     const attributesMap = CategoryModel.getAttributes();
     const attributes = Object.keys(CategoryModel.getAttributes());
     expect(attributes).toStrictEqual([

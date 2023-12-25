@@ -1,67 +1,82 @@
-import { Category } from "#category/domain";
-import { LoadEntityError, UniqueEntityId } from "#seedwork/domain";
-import { setupSequelize } from "../../../../@seedwork/infra/testing/helpers/db";
+import { setupSequelize } from "#seedwork/infra/testing/helpers/db";
+import { DataType } from "sequelize-typescript";
 import { CategorySequelize } from "./category-sequelize";
 
-const {CategoryModel, CategoryModelMapper} = CategorySequelize
+const { CategoryModel } = CategorySequelize;
 
-describe("CategoryModelMapper Unit Tests", () => {
+describe("CategoryModel Unit Tests", () => {
   setupSequelize({ models: [CategoryModel] });
 
-  it("should throws error when category is invalid", () => {
-    const model = CategoryModel.build({
-      id: "9366b7dc-2d71-4799-b91c-c64adb205104",
+  test("mapping props", () => {
+    const attributesMap = CategoryModel.getAttributes();
+    const attributes = Object.keys(CategoryModel.getAttributes());
+    expect(attributes).toStrictEqual([
+      "id",
+      "name",
+      "description",
+      "is_active",
+      "created_at",
+    ]);
+
+    const idAttr = attributesMap.id;
+    expect(idAttr).toMatchObject({
+      field: "id",
+      fieldName: "id",
+      primaryKey: true,
+      type: DataType.UUID(),
     });
-    try {
-      CategoryModelMapper.toEntity(model);
-      fail("The category is valid, but it needs throws a LoadEntityError");
-    } catch (e) {
-      expect(e).toBeInstanceOf(LoadEntityError);
-      expect(e.error).toMatchObject({
-        name: [
-          "name should not be empty",
-          "name must be a string",
-          "name must be shorter than or equal to 255 characters",
-        ],
-      });
-    }
+
+    const nameAttr = attributesMap.name;
+    expect(nameAttr).toMatchObject({
+      field: "name",
+      fieldName: "name",
+      allowNull: false,
+      type: DataType.STRING(255),
+    });
+
+    const descriptionAttr = attributesMap.description;
+    expect(descriptionAttr).toMatchObject({
+      field: "description",
+      fieldName: "description",
+      allowNull: true,
+      type: DataType.TEXT(),
+    });
+
+    const isActiveAttr = attributesMap.is_active;
+    expect(isActiveAttr).toMatchObject({
+      field: "is_active",
+      fieldName: "is_active",
+      allowNull: false,
+      type: DataType.BOOLEAN(),
+    });
+
+    const createdAtAttr = attributesMap.created_at;
+    expect(createdAtAttr).toMatchObject({
+      field: "created_at",
+      fieldName: "created_at",
+      allowNull: false,
+      type: DataType.DATE(3),
+    });
   });
 
-  it("should throw a generic error", () => {
-    const error = new Error("Generic Error");
-    const spyValidate = jest
-      .spyOn(Category, "validate")
-      .mockImplementation(() => {
-        throw error;
-      });
-    const model = CategoryModel.build({
+  test("create", async () => {
+    const arrange = {
       id: "9366b7dc-2d71-4799-b91c-c64adb205104",
-    });
-    expect(() => CategoryModelMapper.toEntity(model)).toThrow(error);
-    expect(spyValidate).toHaveBeenCalled();
-    spyValidate.mockRestore();
-  });
-
-  it("should convert a category model to a category entity", () => {
-    const created_at = new Date();
-    const model = CategoryModel.build({
-      id: "5490020a-e866-4229-9adc-aa44b83234c4",
-      name: "some value",
-      description: "some description",
+      name: "test",
       is_active: true,
-      created_at,
-    });
-    const entity = CategoryModelMapper.toEntity(model);
-    expect(entity.toJSON()).toStrictEqual(
-      new Category(
-        {
-          name: "some value",
-          description: "some description",
-          is_active: true,
-          created_at,
-        },
-        new UniqueEntityId("5490020a-e866-4229-9adc-aa44b83234c4")
-      ).toJSON()
-    );
+      created_at: new Date(),
+    };
+    const category = await CategoryModel.create(arrange);
+    expect(category.toJSON()).toStrictEqual(arrange);
   });
+
+  //primeiro criou categorias
+  //segundo criou categorias
+
+  // sqlite - memory
+
+  //iniciar a conexão
+  //criar tabelas
+  //testes
+  //desconecte banco
 });
