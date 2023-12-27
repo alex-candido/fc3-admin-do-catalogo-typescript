@@ -56,7 +56,7 @@ export namespace CategorySequelize {
           description: chance.paragraph(),
           is_active: true,
           created_at: chance.date(),
-        }),
+        })
       );
     }
   }
@@ -111,7 +111,7 @@ export namespace CategorySequelize {
     }
 
     async search(
-      props: CategoryRepositoryContract.SearchParams,
+      props: CategoryRepositoryContract.SearchParams
     ): Promise<CategoryRepositoryContract.SearchResult> {
       const offset = (props.page - 1) * props.per_page;
       const limit = props.per_page;

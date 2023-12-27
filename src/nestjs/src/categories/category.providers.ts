@@ -7,8 +7,11 @@ import {
   UpdateCategoryUseCase,
 } from '@fc/micro-videos/category/application';
 import { CategoryRepository } from '@fc/micro-videos/category/domain';
-import { CategoryInMemoryRepository } from '@fc/micro-videos/category/infra';
-// import { getModelToken } from '@nestjs/sequelize';
+import {
+  CategoryInMemoryRepository,
+  CategorySequelize,
+} from '@fc/micro-videos/category/infra';
+import { getModelToken } from '@nestjs/sequelize';
 
 export namespace CATEGORY_PROVIDERS {
   export namespace REPOSITORIES {
@@ -17,13 +20,13 @@ export namespace CATEGORY_PROVIDERS {
       useClass: CategoryInMemoryRepository,
     };
 
-    // export const CATEGORY_SEQUELIZE_REPOSITORY = {
-    //   provide: 'CategorySequelizeRepository',
-    //   useFactory: (categoryModel: typeof CategorySequelize.CategoryModel) => {
-    //     return new CategorySequelize.CategoryRepository(categoryModel);
-    //   },
-    //   inject: [getModelToken(CategorySequelize.CategoryModel)],
-    // };
+    export const CATEGORY_SEQUELIZE_REPOSITORY = {
+      provide: 'CategorySequelizeRepository',
+      useFactory: (categoryModel: typeof CategorySequelize.CategoryModel) => {
+        return new CategorySequelize.CategoryRepository(categoryModel);
+      },
+      inject: [getModelToken(CategorySequelize.CategoryModel)],
+    };
 
     export const CATEGORY_REPOSITORY = {
       provide: 'CategoryRepository',
