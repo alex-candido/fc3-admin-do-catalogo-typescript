@@ -1,9 +1,12 @@
+import { CategorySequelize } from '@fc/micro-videos/category/infra';
 import { Module } from '@nestjs/common';
+import { SequelizeModule } from '@nestjs/sequelize';
 import { CategoriesController } from './categories.controller';
 import { CategoriesService } from './categories.service';
 import { CATEGORY_PROVIDERS } from './category.providers';
 //categoria, entidade 1 e entidade 2
 @Module({
+  imports: [SequelizeModule.forFeature([CategorySequelize.CategoryModel])],
   controllers: [CategoriesController],
   providers: [
     CategoriesService,
