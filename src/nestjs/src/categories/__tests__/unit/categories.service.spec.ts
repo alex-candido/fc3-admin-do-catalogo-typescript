@@ -1,3 +1,5 @@
 describe('CategoriesService', () => {
-  console.log('CategoriesService');
+  it('fake', () => {
+    console.log('CategoriesService');
+  });
 });
