@@ -8,10 +8,17 @@ export type PaginationOutputDto<Item = any> = {
   per_page: number;
 };
 
+export type PaginationOutputProps = {
+  total: number;
+  current_page: number;
+  last_page: number;
+  per_page: number;
+};
+
 export class PaginationOutputMapper {
   static toOutput<Item = any>(
     items: Item[],
-    result: SearchResult
+    result: Omit<SearchResult, 'items'>
   ): PaginationOutputDto<Item> {
     return {
       items, 
