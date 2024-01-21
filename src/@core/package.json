@@ -42,14 +42,16 @@
   "scripts": {
     "ts-node": "ts-node",
     "tsc": "tsc",
-    "tsc:check": "tsc --noEmit",
+    "tsc:check": "npm run tsc -- --noEmit",
     "build": "tsc -b ./tsconfig.json",
     "build:w": "tsc -b ./tsconfig.json -w",
     "clean:tsc": "rm tsconfig.tsbuildinfo",
     "test": "jest",
-    "test:cov": "jest --collect-coverage",
+    "test:cov": "npm run test -- --coverage",
     "cti": "cti",
-    "cti:make": "sh ./cti.sh"
+    "cti:make": "sh ./cti.sh",
+    "create:migrate": "ts-node ./src/@seedwork/infra/db/sequelize/migrator-cli.ts create",
+    "migrations:path": "src/category/infra/db/sequelize/migrations"
   },
   "keywords": [],
   "author": "",
@@ -61,6 +63,7 @@
     "@types/jest": "^29.5.6",
     "@types/lodash": "^4.14.200",
     "@types/node": "^20.10.4",
+    "@types/uuid": "^9.0.7",
     "create-ts-index": "^1.14.0",
     "jest": "^29.7.0",
     "regenerator-runtime": "^0.14.0",

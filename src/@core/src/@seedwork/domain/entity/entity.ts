@@ -11,6 +11,10 @@ export abstract class Entity<Props = any> {
     return this.uniqueEntityId.value;
   }
 
+  equals(obj: this): boolean {
+    return this.id === obj.id;
+  }
+
   toJSON(): Required<{ id: string } & Props> {
     return {
       id: this.id,
