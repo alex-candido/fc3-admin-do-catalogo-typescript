@@ -127,3 +127,31 @@
 - Criar testes
   - **Descrição**
     - Lorem ipsum.
+
+## api-http
+
+###
+GET http://localhost:3000/categories
+
+###
+GET http://localhost:3000/categories/afc44bd5-c436-4e35-8b89-9481e7182969
+
+###
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{
+    "name": "Movie"
+}
+
+###
+PUT http://localhost:3000/categories/afc44bd5-c436-4e35-8b89-9481e7182969
+Content-Type: application/json
+
+{
+    "name": "Movie111111"
+}
+
+###
+DELETE  http://localhost:3000/categories/afc44bd5-c436-4e35-8b89-9481e7182969
+Content-Type: application/json
