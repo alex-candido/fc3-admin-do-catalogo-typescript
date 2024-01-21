@@ -1,17 +1,24 @@
 {
   "jsc": {
-    "parser": {
-      "syntax": "typescript",
-      "decorators": true
-    },
-    "baseUrl": "./src",
-    "paths": {
-      "#seedwork/*": [ 
-        "./@seedwork/*"
-      ],
-      "#category/*": [
-        "./category/*"
-      ]
-    }
+      "parser": {
+          "syntax": "typescript",
+          "decorators": true
+      },
+      "baseUrl": "./src",
+      "keepClassNames": true,
+      "paths": {
+          "#seedwork/*": [
+              "./@seedwork/*"
+          ],
+          "#category/*": [
+              "./category/*"
+          ],
+          "#cast-member/*": [
+              "./cast-member/*"
+          ],
+          "#genre/*": [
+              "./genre/*"
+          ]
+      }
   }
 }
