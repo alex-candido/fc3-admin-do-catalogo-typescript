@@ -18,10 +18,10 @@ if [ ! -f "./src/nestjs/envs/.env.e2e" ]; then
     cp ./src/nestjs/.env.e2e.example ./src/nestjs/.env.e2e
 fi
 
-npm install
+yarn install
 
 echo "###### Building @core ######"
-npm run build -w @fc/micro-videos
+yarn run build -w @fc/micro-videos
 
 tail -f /dev/null
 

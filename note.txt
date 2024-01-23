@@ -1,0 +1,6 @@
+##command-create-migration
+node_modules/.bin/ts-node src/@core/src/@seedwork/infra/db/sequelize/migrator-cli.ts create --name create-categories-table.ts --folder src/@core/src/category/infra/db/sequelize/migrations/
+
+##command-create-migration
+yarn w:core create:migrate --name create-categories-table.ts --folder
+src/category/infra/db/sequelize/migrations
